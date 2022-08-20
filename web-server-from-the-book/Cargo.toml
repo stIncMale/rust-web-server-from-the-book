@@ -1,0 +1,18 @@
+[package]
+name = "web-server-from-the-book"
+version = "0.0.0"
+edition = "2021"
+rust-version = "1.63.0"
+authors = ["Valentin Kovalenko <https://www.kovalenko.link>"]
+description = "The final project from \"The Rust Programming Language\""
+license = "WTFPL <http://www.wtfpl.net>"
+repository = "https://github.com/stIncMale/sandbox-rust/rust-web-server-from-the-book"
+readme = "readme.md"
+keywords = ["sandbox"]
+categories = ["network-programming"]
+
+[[bin]]
+name = "web-server-from-the-book"
+path = "src/main.rs"
+
+[dependencies]
