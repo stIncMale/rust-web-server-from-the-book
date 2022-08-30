@@ -6,13 +6,21 @@ rust-version = "1.63.0"
 authors = ["Valentin Kovalenko <https://www.kovalenko.link>"]
 description = "The final project from \"The Rust Programming Language\""
 license = "WTFPL <http://www.wtfpl.net>"
-repository = "https://github.com/stIncMale/sandbox-rust/rust-web-server-from-the-book"
+repository = "https://github.com/stIncMale/sandbox-rust/tree/master/web-server-from-the-book"
 readme = "readme.md"
-keywords = ["sandbox"]
+keywords = ["thread-pool"]
 categories = ["network-programming"]
 
+[lib]
+name = "web_server_from_the_book_lib"
+path = "src/lib.rs"
+
 [[bin]]
-name = "web-server-from-the-book"
+name = "web-server_from-the-book"
 path = "src/main.rs"
 
 [dependencies]
+
+# See https://docs.rs/about/metadata. This is only relevant when publishing to docs.rs.
+[package.metadata.docs.rs]
+rustdoc-args = ["--no-deps"]

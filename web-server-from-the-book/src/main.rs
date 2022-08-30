@@ -2,34 +2,42 @@
     warnings,
     nonstandard_style,
     future_incompatible,
-    rust_2021_compatibility,
     unused_qualifications,
     clippy::all,
-    clippy::pedantic
+    clippy::perf,
+    clippy::pedantic,
+    clippy::cargo,
+    // TODO uncomment in Clippy 1.64
+    // clippy::std_instead_of_core,
+    // clippy::std_instead_of_alloc,
+    // clippy::alloc_instead_of_core,
+    rustdoc::invalid_codeblock_attributes,
+    rustdoc::invalid_html_tags,
 )]
 #![allow(
+    clippy::similar_names,
+    clippy::cast_possible_truncation,
     // uncomment below to simplify editing, comment out again before committing
+    // clippy::pedantic,
     // unused_imports,
     // unused_variables,
     // unused_mut,
     // unreachable_code,
     // dead_code,
-    clippy::missing_errors_doc,
-    clippy::similar_names,
-    clippy::cast_possible_truncation
 )]
 
 use std::io::{BufRead, BufReader, Write};
 use std::net::{TcpListener, TcpStream};
 use std::time::Duration;
 use std::{fs, thread};
+use web_server_from_the_book_lib::ThreadPool;
 
 fn main() {
     let listener = TcpListener::bind("127.0.0.1:7878").unwrap();
-
+    let pool = ThreadPool::new(4);
     for stream in listener.incoming() {
         let stream = stream.unwrap();
-        handle_connection(stream);
+        pool.execute(|| handle_connection(stream));
     }
 }
 
