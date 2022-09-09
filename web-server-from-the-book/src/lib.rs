@@ -18,12 +18,12 @@
     clippy::similar_names,
     clippy::cast_possible_truncation,
     // uncomment below to simplify editing, comment out again before committing
-    clippy::pedantic,
-    unused_imports,
-    unused_variables,
-    unused_mut,
-    unreachable_code,
-    dead_code,
+    // clippy::pedantic,
+    // unused_imports,
+    // unused_variables,
+    // unused_mut,
+    // unreachable_code,
+    // dead_code,
 )]
 
 use std::sync::mpsc::{Receiver, Sender};
@@ -33,7 +33,7 @@ use std::{sync::mpsc, thread};
 
 pub struct ThreadPool {
     workers: Vec<Worker>,
-    sender: Sender<Job>,
+    sender: Option<Sender<Job>>,
 }
 
 impl ThreadPool {
@@ -45,7 +45,8 @@ impl ThreadPool {
     ///
     /// # Panics
     ///
-    /// Panics if the `size` is 0.
+    /// If the `size` is 0.
+    #[must_use]
     pub fn new(size: usize) -> Self {
         assert!(size > 0);
         let (sender, receiver) = mpsc::channel();
@@ -54,14 +55,32 @@ impl ThreadPool {
         for id in 0..size {
             workers.push(Worker::new(id, Arc::clone(&receiver)));
         }
-        Self { workers, sender }
+        Self {
+            workers,
+            sender: Some(sender),
+        }
     }
 
+    /// # Panics
+    ///
+    /// If [sending](Sender::send()) `f` to a worker errors.
     pub fn execute<F>(&self, f: F)
     where
         F: FnOnce() + Send + 'static,
     {
-        self.sender.send(Box::new(f)).unwrap();
+        self.sender.as_ref().unwrap().send(Box::new(f)).unwrap();
+    }
+}
+
+impl Drop for ThreadPool {
+    fn drop(&mut self) {
+        drop(self.sender.take());
+        for worker in &mut self.workers {
+            println!("Shutting down worker {}.", worker.id);
+            if let Some(thread) = worker.thread.take() {
+                thread.join().unwrap();
+            }
+        }
     }
 }
 
@@ -69,16 +88,24 @@ type Job = Box<dyn FnOnce() + Send>;
 
 struct Worker {
     id: usize,
-    thread: JoinHandle<()>,
+    thread: Option<JoinHandle<()>>,
 }
 
 impl Worker {
     fn new(id: usize, receiver: Arc<Mutex<Receiver<Job>>>) -> Self {
         let thread = thread::spawn(move || loop {
-            let job = receiver.lock().unwrap().recv().unwrap();
-            println!("Worker {id} got the job; executing.");
-            job();
+            if let Ok(job) = receiver.lock().unwrap().recv() {
+                println!("Worker {id} got a job; executing.");
+                job();
+                println!("Worker {id} completed the job.");
+            } else {
+                println!("Worker {id} disconnected; shutting down.");
+                break;
+            }
         });
-        Self { id, thread }
+        Self {
+            id,
+            thread: Some(thread),
+        }
     }
 }
