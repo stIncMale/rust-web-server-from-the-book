@@ -1,13 +1,14 @@
 [package]
 name = "web-server-from-the-book"
-version = "0.0.0"
-edition = "2021"
-rust-version = "1.64.0"
-authors = ["Valentin Kovalenko <https://www.kovalenko.link>"]
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+authors.workspace = true
 description = "The final project from \"The Rust Programming Language\""
-license = "WTFPL <http://www.wtfpl.net>"
-repository = "https://github.com/stIncMale/sandbox-rust/tree/master/web-server-from-the-book"
-readme = "readme.md"
+readme.workspace = true
+license.workspace = true
+homepage.workspace = true
+repository.workspace = true
 keywords = ["thread-pool"]
 categories = ["network-programming"]
 

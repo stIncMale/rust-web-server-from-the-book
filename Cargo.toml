@@ -1,2 +1,12 @@
 [workspace]
 members = ["web-server-from-the-book"]
+
+[workspace.package]
+version = "0.0.0"
+edition = "2021"
+rust-version = "1.64.0"
+authors = ["Valentin Kovalenko <https://www.kovalenko.link>"]
+readme = "readme.md"
+license = "WTFPL"
+homepage = "https://github.com/stIncMale/sandbox-rust"
+repository = "https://github.com/stIncMale/sandbox-rust"
