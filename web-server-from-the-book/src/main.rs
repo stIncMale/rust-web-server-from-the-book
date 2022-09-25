@@ -7,12 +7,11 @@
     clippy::perf,
     clippy::pedantic,
     clippy::cargo,
-    // TODO uncomment in Clippy 1.64
-    // clippy::std_instead_of_core,
-    // clippy::std_instead_of_alloc,
-    // clippy::alloc_instead_of_core,
+    clippy::std_instead_of_core,
+    clippy::std_instead_of_alloc,
+    clippy::alloc_instead_of_core,
     rustdoc::invalid_codeblock_attributes,
-    rustdoc::invalid_html_tags,
+    rustdoc::invalid_html_tags
 )]
 #![allow(
     clippy::similar_names,
@@ -26,9 +25,9 @@
     // dead_code,
 )]
 
+use core::time::Duration;
 use std::io::{BufRead, BufReader, Write};
 use std::net::{TcpListener, TcpStream};
-use std::time::Duration;
 use std::{fs, thread};
 use web_server_from_the_book_lib::ThreadPool;
 

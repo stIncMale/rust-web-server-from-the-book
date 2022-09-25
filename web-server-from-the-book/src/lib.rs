@@ -7,12 +7,11 @@
     clippy::perf,
     clippy::pedantic,
     clippy::cargo,
-    // TODO uncomment in Clippy 1.64
-    // clippy::std_instead_of_core,
-    // clippy::std_instead_of_alloc,
-    // clippy::alloc_instead_of_core,
+    clippy::std_instead_of_core,
+    clippy::std_instead_of_alloc,
+    clippy::alloc_instead_of_core,
     rustdoc::invalid_codeblock_attributes,
-    rustdoc::invalid_html_tags,
+    rustdoc::invalid_html_tags
 )]
 #![allow(
     clippy::similar_names,
@@ -26,8 +25,11 @@
     // dead_code,
 )]
 
+extern crate alloc;
+
+use alloc::sync::Arc;
 use std::sync::mpsc::{Receiver, Sender};
-use std::sync::{Arc, Mutex};
+use std::sync::Mutex;
 use std::thread::JoinHandle;
 use std::{sync::mpsc, thread};
 

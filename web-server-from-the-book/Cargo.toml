@@ -2,7 +2,7 @@
 name = "web-server-from-the-book"
 version = "0.0.0"
 edition = "2021"
-rust-version = "1.63.0"
+rust-version = "1.64.0"
 authors = ["Valentin Kovalenko <https://www.kovalenko.link>"]
 description = "The final project from \"The Rust Programming Language\""
 license = "WTFPL <http://www.wtfpl.net>"
