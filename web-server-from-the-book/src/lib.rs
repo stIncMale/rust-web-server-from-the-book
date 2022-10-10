@@ -28,10 +28,15 @@
 extern crate alloc;
 
 use alloc::sync::Arc;
-use std::sync::mpsc::{Receiver, Sender};
-use std::sync::Mutex;
-use std::thread::JoinHandle;
-use std::{sync::mpsc, thread};
+use std::{
+    sync::{
+        mpsc,
+        mpsc::{Receiver, Sender},
+        Mutex,
+    },
+    thread,
+    thread::JoinHandle,
+};
 
 pub struct ThreadPool {
     workers: Vec<Worker>,

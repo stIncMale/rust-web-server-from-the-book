@@ -26,9 +26,13 @@
 )]
 
 use core::time::Duration;
-use std::io::{BufRead, BufReader, Write};
-use std::net::{TcpListener, TcpStream};
-use std::{fs, thread};
+use std::{
+    fs,
+    io::{BufRead, BufReader, Write},
+    net::{TcpListener, TcpStream},
+    thread,
+};
+
 use web_server_from_the_book_lib::ThreadPool;
 
 fn main() {
