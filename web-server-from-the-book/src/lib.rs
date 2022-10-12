@@ -55,7 +55,7 @@ impl ThreadPool {
     /// If the `size` is 0.
     #[must_use]
     pub fn new(size: usize) -> Self {
-        assert!(size > 0);
+        assert!(size > 0, "{:?}", size);
         let (sender, receiver) = mpsc::channel();
         let receiver = Arc::new(Mutex::new(receiver));
         let mut workers = Vec::with_capacity(size);
@@ -75,7 +75,11 @@ impl ThreadPool {
     where
         F: FnOnce() + Send + 'static,
     {
-        self.sender.as_ref().unwrap().send(Box::new(f)).unwrap();
+        self.sender
+            .as_ref()
+            .unwrap()
+            .send(Box::new(f))
+            .expect("Sending succeeds.");
     }
 }
 
