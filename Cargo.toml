@@ -4,7 +4,7 @@ members = ["web-server-from-the-book"]
 [workspace.package]
 version = "0.0.0"
 edition = "2021"
-rust-version = "1.65.0"
+rust-version = "1.66.0"
 authors = ["Valentin Kovalenko <https://www.kovalenko.link>"]
 readme = "readme.md"
 license = "WTFPL"
