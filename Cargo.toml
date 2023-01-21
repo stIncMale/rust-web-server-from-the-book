@@ -8,5 +8,4 @@ rust-version = "1.66.0"
 authors = ["Valentin Kovalenko <https://www.kovalenko.link>"]
 readme = "readme.md"
 license = "WTFPL"
-homepage = "https://github.com/stIncMale/sandbox-rust"
 repository = "https://github.com/stIncMale/sandbox-rust"

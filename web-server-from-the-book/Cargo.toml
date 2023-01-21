@@ -7,7 +7,6 @@ authors.workspace = true
 description = "The final project from \"The Rust Programming Language\""
 readme.workspace = true
 license.workspace = true
-homepage.workspace = true
 repository.workspace = true
 keywords = ["thread-pool"]
 categories = ["network-programming"]
